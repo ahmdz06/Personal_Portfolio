@@ -1,6 +1,60 @@
 import { useState, useEffect, useRef } from 'react'
-import { Briefcase, Download, Github, Linkedin, Mail, MapPin, Brain, Code, BarChart, Users, Folder, Trophy, GraduationCap } from 'lucide-react'
+import { Briefcase, Download, Github, Linkedin, Instagram, Mail, MapPin, Brain, Code, BarChart, Users, Folder, 
+Trophy, GraduationCap, Rocket, ExternalLink, X } from 'lucide-react'
 import './index.css'
+
+const TYPEWRITER_TEXTS = [
+  "Hi There",
+  "This is Muckthar\nAhamed R",
+  "Welcome to my\nPortfolio"
+];
+
+const TypewriterEffect = ({ opacity, scale, translateY }) => {
+  const [text, setText] = useState("");
+  const [index, setIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [typingSpeed, setTypingSpeed] = useState(100);
+
+  useEffect(() => {
+    let timer;
+    const current = TYPEWRITER_TEXTS[index];
+
+    if (isDeleting) {
+      timer = setTimeout(() => {
+        setText(current.substring(0, text.length - 1));
+        setTypingSpeed(40);
+      }, typingSpeed);
+    } else {
+      timer = setTimeout(() => {
+        setText(current.substring(0, text.length + 1));
+        setTypingSpeed(80);
+      }, typingSpeed);
+    }
+
+    if (!isDeleting && text === current) {
+      timer = setTimeout(() => setIsDeleting(true), 2000);
+    } else if (isDeleting && text === "") {
+      setIsDeleting(false);
+      setIndex((index + 1) % TYPEWRITER_TEXTS.length);
+      setTypingSpeed(500);
+    }
+
+    return () => clearTimeout(timer);
+  }, [text, isDeleting, index]);
+
+  return (
+    <div 
+      className="mobile-typewriter" 
+      style={{ 
+        opacity,
+        transform: `scale(${scale || 1}) translateY(${translateY || 0}px)`,
+        transition: 'transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1)'
+      }}
+    >
+      {text}<span className="typewriter-cursor">|</span>
+    </div>
+  );
+};
 
 function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -49,6 +103,7 @@ function App() {
   const [contactMessage, setContactMessage] = useState('')
   const [contactIsSent, setContactIsSent] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [showCofounderModal, setShowCofounderModal] = useState(false)
 
   const handleNavClick = (tabName) => {
     setActiveTab(tabName)
@@ -287,9 +342,11 @@ function App() {
   
   // Staggered opacities for "one by one" effect on left/right columns
   const stagger1 = Math.max(0, Math.min(1, (aboutBoxOpacity - 0.0) * 2))
-  const stagger2 = Math.max(0, Math.min(1, (aboutBoxOpacity - 0.2) * 2))
-  const stagger3 = Math.max(0, Math.min(1, (aboutBoxOpacity - 0.4) * 2))
-  const stagger4 = Math.max(0, Math.min(1, (aboutBoxOpacity - 0.6) * 2))
+  const stagger2 = Math.max(0, Math.min(1, (aboutBoxOpacity - 0.15) * 2))
+  const stagger3 = Math.max(0, Math.min(1, (aboutBoxOpacity - 0.3) * 2))
+  const stagger4 = Math.max(0, Math.min(1, (aboutBoxOpacity - 0.45) * 2))
+  const stagger5 = Math.max(0, Math.min(1, (aboutBoxOpacity - 0.6) * 2))
+  const stagger6 = Math.max(0, Math.min(1, (aboutBoxOpacity - 0.75) * 2))
 
 
 
@@ -1210,7 +1267,7 @@ function App() {
             <div className="home-scroll-track" onScroll={(e) => setHomeScrollTop(e.target.scrollTop)}>
               <div className="home-sticky-viewport">
                 
-                {/* The Cinematic Container */}
+                {/* The cinematic visual container (sticky or fixed) */}
                 <div className="center-container" style={{ opacity: homeMainOpacity, transition: 'opacity 0.2s ease-out' }}>
                   <div className="background-ticker-container" style={{ transform: `scale(${homeTickerScale})`, transformOrigin: 'center center', marginTop: '-12vh', transition: 'transform 0.2s ease-out' }}>
                     <div className="background-ticker ticker-left">
@@ -1268,6 +1325,41 @@ function App() {
                       }}
                     />
                   </div>
+
+                  <TypewriterEffect 
+                    opacity={homeImageOpacity} 
+                    scale={homeImageScale} 
+                    translateY={homeImageTranslateY} 
+                  />
+                  
+                  {/* Mobile Social Links (Only visible on max-width 768px) */}
+                  <a 
+                    href="https://www.linkedin.com/in/mucktharahamed-r-data-analyst" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="mobile-social-text linkedin-mobile"
+                    style={{
+                      opacity: homeImageOpacity,
+                      left: `${10 - (homeScrollTop * 0.3)}px`,
+                      transform: 'rotate(180deg)',
+                      transition: 'opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1), left 0.1s linear'
+                    }}
+                  >
+                    LINKEDIN
+                  </a>
+                  <a 
+                    href="https://www.instagram.com/_.ahmdz._/" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="mobile-social-text instagram-mobile"
+                    style={{
+                      opacity: homeImageOpacity,
+                      right: `${10 - (homeScrollTop * 0.3)}px`,
+                      transition: 'opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1), right 0.1s linear'
+                    }}
+                  >
+                    INSTAGRAM
+                  </a>
                 </div>
 
                 {/* The About Canvas (3-Column Layout) */}
@@ -1276,35 +1368,56 @@ function App() {
                   style={{
                     opacity: aboutImageOpacity,
                     pointerEvents: aboutImageOpacity > 0 ? 'auto' : 'none',
-                    transition: 'opacity 0.2s ease-out',
-                    transform: `translateY(${50 * (1 - aboutImageOpacity)}px)`
+                    transition: 'opacity 0.2s ease-out'
                   }}
                 >
                   {/* LEFT COLUMN */}
                   <div className="about-content-left">
                     <div className="about-section-label" style={{ opacity: stagger1, transform: `translateY(${20 * (1 - stagger1)}px)`, transition: 'opacity 0.2s, transform 0.2s' }}>
-                      ABOUT ME <span className="label-line"></span>
+                      <span className="label-line left"></span> ABOUT ME <span className="label-line"></span>
                     </div>
                     
                     <h1 className="about-name-title" style={{ opacity: stagger1, transform: `translateY(${20 * (1 - stagger1)}px)`, transition: 'opacity 0.2s, transform 0.2s' }}>R. Muckthar<br/>Ahamed</h1>
                     
-                    <h3 className="about-subtitle" style={{ opacity: stagger2, transform: `translateY(${20 * (1 - stagger2)}px)`, transition: 'opacity 0.2s, transform 0.2s' }}>AI Engineer • Data Scientist • Full Stack Developer</h3>
+                    <h3 className="about-subtitle" style={{ opacity: stagger2, transform: `translateY(${20 * (1 - stagger2)}px) translateZ(0)`, transition: 'opacity 0.2s, transform 0.2s' }}>AI Engineer • Data Scientist • Full Stack Developer</h3>
                     
-                    <p className="about-description" style={{ opacity: stagger2, transform: `translateY(${20 * (1 - stagger2)}px)`, transition: 'opacity 0.2s, transform 0.2s' }}>
-                      As a hybrid Data Analyst and Full-Stack Developer, I specialize in the intersection of data science and web technologies. From engineering robust PostgreSQL databases to developing intuitive React interfaces, I am passionate about building end-to-end products powered by intelligent data.
-                    </p>
+                    <div className="about-description-wrapper">
+                      <p className="about-description" style={{ opacity: stagger3, transform: `translateY(${20 * (1 - stagger3)}px) translateZ(0)`, transition: 'opacity 0.2s, transform 0.2s' }}>
+                        As a hybrid Data Analyst and Full-Stack Developer, I specialize in the intersection of data science and web technologies. From engineering robust PostgreSQL databases to developing intuitive React interfaces, I am passionate about building end-to-end products powered by intelligent data.
+                      </p>
+
+                      {/* Mobile Cofounder Square Button */}
+                      <button className="cofounder-card mobile-cofounder" onClick={() => setShowCofounderModal(true)} style={{ opacity: stagger4, transform: `translateY(${20 * (1 - stagger4)}px) translateZ(0)`, transition: 'opacity 0.2s, transform 0.2s' }}>
+                        <div className="cofounder-logo">
+                          <img src="/dotspot.webp" alt="DotSpot Logo" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                        </div>
+                        <span className="mobile-cofounder-role">CO-FOUNDER</span>
+                      </button>
+                    </div>
+
+                    {/* Desktop Cofounder Link */}
+                    <a href="https://dotspot.in" target="_blank" rel="noopener noreferrer" className="cofounder-card desktop-cofounder" style={{ opacity: stagger4, transform: `translateY(${20 * (1 - stagger4)}px)`, transition: 'opacity 0.2s, transform 0.2s' }}>
+                      <div className="cofounder-logo">
+                        <img src="/dotspot.webp" alt="DotSpot Logo" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                      </div>
+                      <div className="cofounder-details">
+                        <span className="cofounder-role">CO-FOUNDER</span>
+                        <span className="cofounder-title">DotSpot Digital Studio <ExternalLink size={14} /></span>
+                        <span className="cofounder-desc">Digital Products • AI • Web Solutions</span>
+                      </div>
+                    </a>
                     
-                    <div className="about-action-row" style={{ opacity: stagger3, transform: `translateY(${20 * (1 - stagger3)}px)`, transition: 'opacity 0.2s, transform 0.2s' }}>
+                    <div className="about-action-row" style={{ opacity: stagger5, transform: `translateY(${20 * (1 - stagger5)}px)`, transition: 'opacity 0.2s, transform 0.2s' }}>
                       <button className="btn-dark" onClick={() => handleNavClick('Project')}>
                         <Briefcase size={18} /> View Projects
                       </button>
                     </div>
                     
-                    <div className="about-divider" style={{ opacity: stagger3, transition: 'opacity 0.2s' }}></div>
+                    <div className="about-divider" style={{ opacity: stagger5, transition: 'opacity 0.2s' }}></div>
                     
-                    <div className="about-connect-label" style={{ opacity: stagger4, transform: `translateY(${20 * (1 - stagger4)}px)`, transition: 'opacity 0.2s, transform 0.2s' }}>Connect with me</div>
+                    <div className="about-connect-label" style={{ opacity: stagger6, transform: `translateY(${20 * (1 - stagger6)}px)`, transition: 'opacity 0.2s, transform 0.2s' }}>Connect with me</div>
                     
-                    <div className="about-social-row" style={{ opacity: stagger4, transform: `translateY(${20 * (1 - stagger4)}px)`, transition: 'opacity 0.2s, transform 0.2s' }}>
+                    <div className="about-social-row" style={{ opacity: stagger6, transform: `translateY(${20 * (1 - stagger6)}px)`, transition: 'opacity 0.2s, transform 0.2s' }}>
                       <a href="#" className="social-icon-btn"><Github size={20} /></a>
                       <a href="#" className="social-icon-btn"><Linkedin size={20} /></a>
                       <a href="#" className="social-icon-btn"><Mail size={20} /></a>
@@ -1377,6 +1490,13 @@ function App() {
                         </div>
                       </div>
                       <div className="neumorphic-card grid-card" style={{ opacity: stagger4, transform: `translateY(${20 * (1 - stagger4)}px)`, transition: 'opacity 0.2s, transform 0.2s' }}>
+                        <div className="card-icon-wrapper"><Rocket size={18} /></div>
+                        <div className="card-text">
+                          <h4>01</h4>
+                          <p>Startup<br/><span style={{fontSize: '0.65rem', color: '#777'}}>DotSpot Digital Studio</span></p>
+                        </div>
+                      </div>
+                      <div className="neumorphic-card grid-card" style={{ opacity: stagger4, transform: `translateY(${20 * (1 - stagger4)}px)`, transition: 'opacity 0.2s, transform 0.2s' }}>
                         <div className="card-icon-wrapper"><GraduationCap size={18} /></div>
                         <div className="card-text">
                           <h4>B.Tech CSE</h4>
@@ -1392,6 +1512,26 @@ function App() {
           )}
         </div>
       </main>
+
+      {/* Cofounder Mobile Modal */}
+      {showCofounderModal && (
+        <div className="cofounder-modal-overlay" onClick={() => setShowCofounderModal(false)}>
+          <div className="cofounder-modal-content" onClick={e => e.stopPropagation()}>
+            <button className="cofounder-modal-close" onClick={() => setShowCofounderModal(false)}>
+              <X size={20} />
+            </button>
+            <img src="/dotspot.webp" alt="DotSpot Logo" className="modal-logo" />
+            <span className="modal-role">CO-FOUNDER</span>
+            <h3 className="modal-title">DotSpot Digital Studio</h3>
+            <p className="modal-desc">
+              DotSpot Digital Studio is an innovative startup focused on delivering premium Digital Products, AI solutions, and Web Technologies.
+            </p>
+            <a href="https://dotspot.in" target="_blank" rel="noopener noreferrer" className="btn-dark modal-visit-btn">
+              <ExternalLink size={16} style={{ marginRight: '8px' }} /> Visit Website
+            </a>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
