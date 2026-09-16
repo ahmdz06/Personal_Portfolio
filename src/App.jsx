@@ -331,6 +331,8 @@ function App() {
   const homeImageTranslateY = homeProgress * 500
   const homeImageOpacity = Math.max(0, 1 - (homeProgress * 1.2)) // Fades out as it moves down
   const homeTickerScale = 1 + (homeProgress * 15)
+  const homeTextScale = 1 + (0.5 * homeProgress)
+  const homeTextTranslateY = -(homeProgress * 500)
   
   // Phase 2: 800 - 1100px -> Main container fades out, About image fades in
   const fadeOutProgress = Math.max(0, Math.min(1, (homeScrollTop - 800) / 300))
@@ -1328,8 +1330,8 @@ function App() {
 
                   <TypewriterEffect 
                     opacity={homeImageOpacity} 
-                    scale={homeImageScale} 
-                    translateY={homeImageTranslateY} 
+                    scale={homeTextScale} 
+                    translateY={homeTextTranslateY} 
                   />
                   
                   {/* Mobile Social Links (Only visible on max-width 768px) */}
