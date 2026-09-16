@@ -3030,14 +3030,14 @@ body {
   -webkit-backdrop-filter: blur(10px);
   width: max-content;
   max-width: 100%;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
   transition: transform 0.2s, background 0.2s, box-shadow 0.2s;
 }
 
 .desktop-cofounder.cofounder-card:hover {
   transform: translateY(-2px);
   background: rgba(245, 245, 245, 0.9);
-  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
 }
 
 .desktop-cofounder .cofounder-logo {
@@ -3049,14 +3049,14 @@ body {
   justify-content: center;
   align-items: center;
   padding: 8px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
 .desktop-cofounder .cofounder-details {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  border-left: 1px solid rgba(0,0,0,0.1);
+  border-left: 1px solid rgba(0, 0, 0, 0.1);
   padding-left: 20px;
 }
 
@@ -3516,15 +3516,28 @@ body {
   50% {
     opacity: 0;
   }
-}.status-dot {
+}
+
+.status-dot {
   background-color: #22c55e !important;
   animation: pulseGreen 1.5s infinite;
 }
 
 @keyframes pulseGreen {
-  0% { opacity: 1; box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
-  50% { opacity: 0.5; box-shadow: 0 0 0 4px rgba(34, 197, 94, 0); }
-  100% { opacity: 1; box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+  0% {
+    opacity: 1;
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+  }
+
+  50% {
+    opacity: 0.5;
+    box-shadow: 0 0 0 4px rgba(34, 197, 94, 0);
+  }
+
+  100% {
+    opacity: 1;
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+  }
 }
 
 @media (max-width: 768px) {
@@ -3534,28 +3547,35 @@ body {
     gap: 4px !important;
   }
 }
+
 @media (max-width: 768px) {
+
   .about-action-row,
   .about-social-row {
     margin-left: 20px !important;
   }
+
   .about-connect-label {
     margin-left: 25px !important;
   }
+
   .status-pill {
     margin-left: 15px !important;
   }
 }
+
 @media (max-width: 768px) {
   .status-pill {
     margin-left: -5px !important;
   }
 }
+
 @media (max-width: 768px) {
   .about-social-row {
     margin-top: -5px !important;
   }
 }
+
 /* Cofounder Mobile Modal */
 .cofounder-modal-overlay {
   position: fixed;
@@ -3602,6 +3622,7 @@ body {
   justify-content: center;
   border-radius: 50%;
 }
+
 .cofounder-modal-close:hover {
   background: rgba(255, 255, 255, 0.1);
   color: #fff;
@@ -3648,35 +3669,76 @@ body {
   font-size: 0.9rem;
 }
 
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-@keyframes scaleUp { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleUp {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 /* Light Theme Override for Cofounder Modal */
 .cofounder-modal-content {
   background: rgba(255, 255, 255, 0.95) !important;
   border: 1px solid rgba(0, 0, 0, 0.1) !important;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2) !important;
 }
+
 .modal-title {
   color: #111 !important;
 }
+
 .modal-desc {
   color: #555 !important;
 }
+
 .modal-link-btn {
   background: #111 !important;
   color: #fff !important;
 }
+
 .cofounder-modal-close {
   color: #555 !important;
 }
+
 .cofounder-modal-close:hover {
   background: rgba(0, 0, 0, 0.05) !important;
   color: #111 !important;
 }
+
 /* Fix button to be white */
 .modal-link-btn {
   background: #ffffff !important;
   color: #000000 !important;
-  border: 1px solid rgba(0,0,0,0.2) !important;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1) !important;
+  border: 1px solid rgba(0, 0, 0, 0.2) !important;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Desktop Only: Reorder columns (Image to the right, 'What I Do' to the middle) */
+@media (min-width: 1025px) {
+  .about-content-left {
+    order: 1;
+  }
+
+  .about-content-right {
+    order: 2;
+  }
+
+  .about-image-center {
+    order: 3;
+  }
 }

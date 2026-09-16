@@ -110,6 +110,7 @@ function App() {
     setMobileMenuOpen(false) // Close mobile menu if open
     setScrollTop(0) // Reset scroll position when switching tabs
     setJourneyScrollTop(0) // Reset journey scroll position
+    setHomeScrollTop(0) // Reset home scroll position
   }
 
   const handleScroll = (e) => {
