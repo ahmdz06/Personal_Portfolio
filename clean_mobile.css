@@ -1,0 +1,309 @@
+/* =========================================
+   RESPONSIVE DESIGN (TABLET & MOBILE)
+   ========================================= */
+
+@media (max-width: 1024px) {
+
+  /* Layout Resets */
+  .contact-card-wrapper {
+    flex-direction: column;
+    overflow-y: auto;
+    height: auto !important;
+  }
+
+  .about-split-layout {
+    display: block;
+    overflow: hidden;
+    height: 100vh !important;
+  }
+
+  .home-scroll-track,
+  .contact-page-container {
+    overflow-y: auto;
+  }
+
+  /* Home Page (About Split) */
+  .about-content-left {
+    padding: 5vh 5vw 20vh 5vw;
+    align-items: flex-start; /* Move text boxes to the left */
+    text-align: left; /* Move text to the left */
+    max-width: 100%;
+    height: 100vh;
+    overflow: hidden; /* Stop independent scrolling */
+    position: relative; /* Enable z-index */
+    z-index: 15; /* Float OVER the image */
+  }
+
+  .about-content-right {
+    display: none !important;
+  }
+
+  .about-section-label {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .about-name-title {
+    display: none !important; /* Removed name on mobile */
+  }
+
+  .about-subtitle {
+    font-size: 0.85rem;
+    max-width: 85vw;
+    margin-top: 10px;
+    background: rgba(255, 255, 255, 0.4);
+    padding: 6px 12px;
+    border-radius: 8px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: inline-block;
+    align-self: center;
+    text-align: center;
+  }
+
+  .about-description-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 15px;
+    width: 100%;
+    margin-top: 15px;
+    margin-bottom: 20px;
+    margin-left: 15px;
+  }
+
+  .about-description {
+    font-size: 0.85rem;
+    max-width: 55vw;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.75) 0%, rgba(255, 255, 255, 0.3) 100%);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 16px;
+    padding: 16px 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    border-left: none;
+    margin-top: 0;
+    margin-bottom: 0;
+    color: #222;
+  }
+
+  .desktop-cofounder {
+    display: none !important;
+  }
+  
+  .mobile-cofounder {
+    display: flex !important;
+    width: 95px !important;
+    height: 95px !important;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    gap: 10px;
+    margin-left: 0;
+    border-radius: 18px;
+    background: linear-gradient(135deg, rgba(240, 240, 240, 0.85) 0%, rgba(255, 255, 255, 0.5) 100%);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  }
+  
+  .mobile-cofounder-role {
+    font-size: 0.55rem;
+    font-weight: 700;
+    color: #444;
+    letter-spacing: 1px;
+    margin: 0;
+  }
+  
+  .mobile-cofounder .cofounder-logo {
+    width: 38px;
+    height: 38px;
+  }
+
+  .about-action-row {
+    flex-direction: column;
+    width: 100%;
+    max-width: 60vw;
+    align-items: flex-start;
+  }
+
+  .about-social-row {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    max-width: 60vw;
+  }
+
+  .status-pill {
+    margin-left: 0;
+    margin-top: 15px;
+  }
+
+  .about-image-center {
+    position: absolute;
+    bottom: -5px;
+    right: -10vw;
+    height: 60vh;
+    z-index: 10;
+    opacity: 0.95;
+    pointer-events: none;
+    margin: 0;
+  }
+
+  .about-portrait-bw {
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .cofounder-card {
+    max-width: 90%;
+    width: 100%;
+    justify-content: flex-start;
+    margin-left: 0;
+  }
+
+  /* Contact Page */
+  .contact-info-panel,
+  .contact-form-panel {
+    padding: 40px 30px;
+    width: 100%;
+  }
+
+  .form-group.half-width {
+    width: 100%;
+  }
+
+  /* Skills Grid */
+  .skills-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Journey/Timeline */
+  .journey-timeline-grid {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 20px;
+  }
+
+  .timeline-center-line {
+    display: none;
+  }
+
+  .journey-timeline-item.left-aligned,
+  .journey-timeline-item.right-aligned {
+    text-align: center;
+    padding: 10px;
+  }
+
+  .timeline-dot {
+    position: relative;
+    margin: 0 auto 15px auto;
+    left: auto;
+    right: auto;
+    transform: none;
+  }
+}
+
+@media (max-width: 768px) {
+
+  /* Navigation */
+  .capsule-header {
+    top: 15px;
+    width: 90%;
+  }
+
+  /* Home Page */
+  .about-name-title {
+    font-size: 2.8rem;
+  }
+
+  .glance-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .neumorphic-card {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .background-ticker-container {
+    display: flex;
+    margin-top: -22vh !important;
+    gap: 2rem !important;
+  }
+
+  .ticker-track span,
+  .ticker-item,
+  .ticker-bullet {
+    font-size: 22vw !important;
+    line-height: 1.1 !important;
+  }
+
+  .ticker-item.color-white {
+    -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.7) !important;
+  }
+
+  .ticker-item.color-black {
+    -webkit-text-stroke: 1.5px rgba(0, 0, 0, 0.75) !important;
+  }
+
+  .centered-image {
+    height: 68vh !important;
+    /* Fill page more vertically */
+    margin-left: 15vw;
+    /* Shift to the right */
+  }
+
+  /* Skills Grid */
+  .skills-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Layout Paddings */
+  .about-content-left {
+    padding-top: 120px;
+    /* Clear fixed mobile header */
+  }
+
+  .contact-card-wrapper {
+    margin-top: 100px;
+  }
+
+}
+
+.mobile-social-text {
+  display: none;
+  /* Hide on desktop */
+}
+
+@media (max-width: 768px) {
+  .mobile-social-text {
+    display: block !important;
+    position: absolute;
+    top: 18vh;
+    z-index: 20;
+    color: #383838;
+    /* Dark color to match the portfolio */
+    font-family: 'Outfit', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+    writing-mode: vertical-rl;
+    opacity: 0.8;
+  }
+
+  .linkedin-mobile {
+    left: 10px;
+    transform: rotate(180deg);
+    /* Reads bottom-to-top */
+  }
+
+  .instagram-mobile {
+    right: 10px;
+    /* Reads top-to-bottom */
+  }
+}
